@@ -21,6 +21,8 @@ class MessageList:
         self.Content = Content
 
 data_list = []
+filename = "recorded_audio.wav"
+output_file = "output.mp3"
 
 def record_audio(duration=5):
     CHUNK = 1024
@@ -78,8 +80,8 @@ def transcribe_audio():
     return output
 
 def GetResultFromOpenAI(text):
-    openai_api_key = "AIzaSyAgrYXkNvifZ54oZPWxHzA4w2qRgaWCp2Y"
-    url = "https://free-gpt-api.chatvn.org/v1/chat/completions"
+    openai_api_key = "openai_api_key"
+    url = "https://api.openai.com/v1/chat/completions"
         
     headers = {
         "Content-Type": "application/json",
@@ -91,7 +93,7 @@ def GetResultFromOpenAI(text):
         "messages": json_data_list,
         "temperature": 1.1
     }
-    print(f"Google Assistant's thinking...\n")
+    print(f"ChatGPT's thinking...\n")
     response = requests.post(url, headers=headers, json=data)
 
     if response.status_code == 200:
@@ -110,9 +112,9 @@ def text_to_speech_vietnamese(text):
         
     tts = gTTS(text=text, lang='vi')
     tts.save(output_file)
-    print(f"Google Assistant's responding:...\n")
+    print(f"ChatGPT's responding:...\n")
     time.sleep(1)
-    print(f"Google Assistant: ", end='')
+    print(f"ChatGPT: ", end='')
     PrintText(text)
 
     mixer.init()
@@ -124,13 +126,10 @@ def PrintText(text):
       print(i,end='' ,flush=True)
       time.sleep(0.04)
     print("\n")
-    
-filename = "recorded_audio.wav"
-output_file = "output.mp3"
       
 if __name__ == "__main__":    
 
-    print(f"Google Assistant: ", end='')
+    print(f"ChatGPT: ", end='')
     
     PrintText("Hello, Nice to meet you! Have a good day for you!")
     while True:
